@@ -1,0 +1,7 @@
+gui.c:43:6:GUI_FillScreen	24	static
+gui.c:52:6:GUI_WritePixel	16	static
+gui.c:59:6:GUI_WriteSquare	40	static
+gui.c:85:6:GUI_UpdateScreen	16	static
+gui.c:99:6:GUI_UpdateScreen_SPI	16	static
+gui.c:124:6:HAL_SPI_TxCpltCallback	16	static
+gui.c:131:6:GUI_NormalizeXY	16	static
