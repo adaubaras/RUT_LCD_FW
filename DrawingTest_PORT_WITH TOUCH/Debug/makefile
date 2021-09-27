@@ -24,24 +24,24 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-DrawingTest_PORT.elf \
+RUT_LCD_TOUCH_DEMO.elf \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-DrawingTest_PORT.list \
+RUT_LCD_TOUCH_DEMO.list \
 
 OBJCOPY_BIN += \
-DrawingTest_PORT.bin \
+RUT_LCD_TOUCH_DEMO.bin \
 
 
 # All Target
-all: DrawingTest_PORT.elf secondary-outputs
+all: RUT_LCD_TOUCH_DEMO.elf secondary-outputs
 
 # Tool invocations
-DrawingTest_PORT.elf: $(OBJS) $(USER_OBJS) C:\Users\IUS\Documents\PROJECTS\RUT_LCD_SHIELD\FW_DEMO_2020-10-14\DrawingTest_PORT_WITH\ TOUCH\STM32L562ZETXQ_FLASH.ld
-	arm-none-eabi-gcc -o "DrawingTest_PORT.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"C:\Users\IUS\Documents\PROJECTS\RUT_LCD_SHIELD\FW_DEMO_2020-10-14\DrawingTest_PORT_WITH TOUCH\STM32L562ZETXQ_FLASH.ld" --specs=nosys.specs -Wl,-Map="DrawingTest_PORT.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+RUT_LCD_TOUCH_DEMO.elf: $(OBJS) $(USER_OBJS) C:\Users\IUS\Documents\PROJECTS\RUT_LCD_FW\DrawingTest_PORT_WITH\ TOUCH\STM32L562ZETXQ_FLASH.ld
+	arm-none-eabi-gcc -o "RUT_LCD_TOUCH_DEMO.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m33 -T"C:\Users\IUS\Documents\PROJECTS\RUT_LCD_FW\DrawingTest_PORT_WITH TOUCH\STM32L562ZETXQ_FLASH.ld" -Wl,-Map="RUT_LCD_TOUCH_DEMO.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -50,13 +50,13 @@ default.size.stdout: $(EXECUTABLES)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-DrawingTest_PORT.list: $(EXECUTABLES)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "DrawingTest_PORT.list"
+RUT_LCD_TOUCH_DEMO.list: $(EXECUTABLES)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "RUT_LCD_TOUCH_DEMO.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
-DrawingTest_PORT.bin: $(EXECUTABLES)
-	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "DrawingTest_PORT.bin"
+RUT_LCD_TOUCH_DEMO.bin: $(EXECUTABLES)
+	arm-none-eabi-objcopy  -O binary $(EXECUTABLES) "RUT_LCD_TOUCH_DEMO.bin"
 	@echo 'Finished building: $@'
 	@echo ' '
 

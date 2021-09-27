@@ -35,7 +35,7 @@ SOFTWARE.
 
 #include <ili9341.h>
 #include "main.h" // Hardware setting
-#include "rgb.c";
+#include "rgb.c"
 // This function is for compatible HiLetgo ILI9341
 
 typedef enum {
@@ -72,7 +72,29 @@ static void LED_H(void);
 void ILI9341_Init(void)
 {
 	ILI9341_Reset();
+
 	ILI9341_SoftReset();
+
+
+	//short setup
+	/* Pixel Format Set */
+	//LCD_WR_REG(0x3A);
+	//LCD_WR_DATA(0x5);    //16bit RGB 5-6-5-bit input
+	//LCD_WR_REG(0xB1);
+	//LCD_WR_DATA(0x00);
+	//LCD_WR_DATA(0x18);
+
+	//EXIT SLEEP
+	//LCD_WR_REG(0x11);
+
+	//HAL_Delay(120);
+
+	//TURN ON DISPLAY
+//	LCD_WR_REG(0x29);
+	//LCD_WR_DATA(0x2C);
+
+//	LCD_direction(ROTATE_0);
+
 
 #if 1
 
@@ -137,16 +159,20 @@ void ILI9341_Init(void)
 	LCD_WR_DATA(0x82);
 	LCD_WR_DATA(0x27);
 
+	/* Display Function Control */
+	LCD_WR_REG(0xB0);
+	LCD_WR_DATA(0x00);
+	LCD_WR_DATA(0x82);
 
 
 	/* 3GAMMA FUNCTION DISABLE */
-	LCD_WR_REG(0xF2);
-	LCD_WR_DATA(0x00);
+	//LCD_WR_REG(0xF2);
+//	LCD_WR_DATA(0x00);
 	/* GAMMA CURVE SELECTED */
-	LCD_WR_REG(0x26); //Gamma set
-	LCD_WR_DATA(0x01); 	//Gamma Curve (G2.2)
+//	LCD_WR_REG(0x26); //Gamma set
+//	LCD_WR_DATA(0x01); 	//Gamma Curve (G2.2)
 	//Positive Gamma  Correction
-	LCD_WR_REG(0xE0);
+/*	LCD_WR_REG(0xE0);
 	LCD_WR_DATA(0x0F);
 	LCD_WR_DATA(0x31);
 	LCD_WR_DATA(0x2B);
@@ -162,8 +188,8 @@ void ILI9341_Init(void)
 	LCD_WR_DATA(0x0E);
 	LCD_WR_DATA(0x09);
 	LCD_WR_DATA(0x00);
-	//Negative Gamma  Correction
-	LCD_WR_REG(0xE1);
+*/	//Negative Gamma  Correction
+/*	LCD_WR_REG(0xE1);
 	LCD_WR_DATA(0x00);
 	LCD_WR_DATA(0x0E);
 	LCD_WR_DATA(0x14);
@@ -179,6 +205,10 @@ void ILI9341_Init(void)
 	LCD_WR_DATA(0x31);
 	LCD_WR_DATA(0x36);
 	LCD_WR_DATA(0x0F);
+*/
+	/*Inversion on */
+	LCD_WR_REG(0x21);
+	HAL_Delay(10);
 	//EXIT SLEEP
 	LCD_WR_REG(0x11);
 
@@ -189,7 +219,11 @@ void ILI9341_Init(void)
 	LCD_WR_DATA(0x2C);
 
 	LCD_direction(ROTATE_0);
-//#else
+	HAL_Delay(100);
+
+#else
+#endif
+#if 0
 	// I refer https://github.com/dtnghia2206/TFTLCD/blob/master/TFTLCD/ILI9341/ILI9341_Driver.c
 	/* Power Control A */
 /*	LCD_WR_REG(0xCB);  // nera tokio rego
@@ -250,10 +284,11 @@ void ILI9341_Init(void)
 	LCD_WR_DATA(0x82);
 	LCD_WR_DATA(0x27);
 	3GAMMA FUNCTION DISABLE */
-/*	LCD_WR_REG(0xF2);
-	LCD_WR_DATA(0x00);
+//	LCD_WR_REG(0xF2);
+//	LCD_WR_DATA(0x00);
 
-
+//	Inversion off
+	//LCD_WR_REG(0x20);
 	/*Inversion on */
 	LCD_WR_REG(0x21);
 	// RAMCTRL (B0h): RAM Control
@@ -314,6 +349,8 @@ void ILI9341_Init(void)
 	//TURN ON DISPLAY
 	LCD_WR_REG(0x29); // no parameter
 //	LCD_WR_DATA(0x2C); no
+
+
 
 	LCD_direction(ROTATE_0);
 	//LED_H();
@@ -461,7 +498,7 @@ for (int col = 0; col < 320;col += 1){
 	//			ILI9341_DrawBitmap(GUI_WIDTH, 80, &image_data_rgb[image_data_logo]);
 
 
-	for (int i,j = 0; i < 240*2;){
+	for (int i = 0; i < 240*2;){
 		data[i++] = *s++;
 		data[i++] = *s++ >> 8;
 
@@ -508,21 +545,26 @@ for (int col = 0; col < 320;col += 1){
 //	//CS_H();
 void ILI9341_Reset(void)
 {
+	HAL_Delay(100);
 	RESET_L();
 	HAL_Delay(100);
 	RESET_H();
 	HAL_Delay(100);
 	CS_L();
 	LED_H();
+	HAL_Delay(100);
 }
 
 void ILI9341_SoftReset(void)
 {
+	HAL_Delay(100);
 	uint8_t cmd;
 	cmd = 0x01; //Software reset
+	HAL_Delay(100);
 	DC_L();
 	if (HAL_SPI_Transmit(&hspi1, &cmd, 1, 1000) != HAL_OK) {
 		Error_Handler();
+		HAL_Delay(200);
 	}
 }
 

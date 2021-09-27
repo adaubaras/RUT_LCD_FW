@@ -29,6 +29,8 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/main.h \
  ../Drivers/STM32L5xx_HAL_Driver/Inc/stm32l5xx_hal_pwr_ex.h \
  ../Drivers/STM32L5xx_HAL_Driver/Inc/stm32l5xx_hal_spi.h \
  ../Drivers/STM32L5xx_HAL_Driver/Inc/stm32l5xx_hal_spi_ex.h \
+ ../Drivers/STM32L5xx_HAL_Driver/Inc/stm32l5xx_hal_uart.h \
+ ../Drivers/STM32L5xx_HAL_Driver/Inc/stm32l5xx_hal_uart_ex.h \
  ../Core/Inc/gui.h ../Core/Inc/ili9341.h ../Core/Inc/main.h \
  ../Core/Inc/xpt2046.h
 
@@ -93,6 +95,10 @@ Core/Src/gui.o: ../Core/Src/gui.c ../Core/Inc/main.h \
 ../Drivers/STM32L5xx_HAL_Driver/Inc/stm32l5xx_hal_spi.h:
 
 ../Drivers/STM32L5xx_HAL_Driver/Inc/stm32l5xx_hal_spi_ex.h:
+
+../Drivers/STM32L5xx_HAL_Driver/Inc/stm32l5xx_hal_uart.h:
+
+../Drivers/STM32L5xx_HAL_Driver/Inc/stm32l5xx_hal_uart_ex.h:
 
 ../Core/Inc/gui.h:
 
