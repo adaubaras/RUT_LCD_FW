@@ -63,4 +63,14 @@ void ILI9341_SetWindow(uint16_t start_x, uint16_t start_y, uint16_t end_x, uint1
 void ILI9341_DrawBitmap(uint16_t w, uint16_t h, uint8_t *s);
 void ILI9341_WritePixel(uint16_t x, uint16_t y, uint16_t color);
 
+void LCD_WR_REG(uint8_t data);
+void LCD_WR_DATA(uint8_t data);
+
+void RESET_L(void);
+void RESET_H(void);
+void CS_L(void);
+void DC_L(void);
+void DC_H(void);
+void LED_H(void);
+
 #endif /* INC_ILI9341_H_ */

@@ -58,15 +58,8 @@ extern SPI_HandleTypeDef hspi1;
 void ILI9341_Reset(void);
 void ILI9341_SoftReset(void);
 
-static void LCD_WR_REG(uint8_t data);
-static void LCD_WR_DATA(uint8_t data);
-static void LCD_direction(LCD_Horizontal_t direction);
-static void RESET_L(void);
-static void RESET_H(void);
-static void CS_L(void);
-static void DC_L(void);
-static void DC_H(void);
-static void LED_H(void);
+void LCD_direction(LCD_Horizontal_t direction);
+
 
 // Initialization
 void ILI9341_Init(void)
@@ -211,7 +204,6 @@ void ILI9341_Init(void)
 	HAL_Delay(10);
 	//EXIT SLEEP
 	LCD_WR_REG(0x11);
-
 	HAL_Delay(120);
 
 	//TURN ON DISPLAY
@@ -569,7 +561,7 @@ void ILI9341_SoftReset(void)
 }
 
 
-static void LCD_WR_REG(uint8_t data)
+void LCD_WR_REG(uint8_t data)
 {
 	DC_L();
 	if (HAL_SPI_Transmit(&hspi1, &data, 1, 1000) != HAL_OK) {
@@ -577,7 +569,7 @@ static void LCD_WR_REG(uint8_t data)
 	}
 }
 
-static void LCD_WR_DATA(uint8_t data)
+void LCD_WR_DATA(uint8_t data)
 {
 	DC_H();
 	if (HAL_SPI_Transmit(&hspi1, &data, 1, 1000) != HAL_OK) {
@@ -585,7 +577,7 @@ static void LCD_WR_DATA(uint8_t data)
 	}
 }
 
-static void LCD_direction(LCD_Horizontal_t direction)
+void LCD_direction(LCD_Horizontal_t direction)
 {
 	switch (direction) {
 	case ROTATE_0:
@@ -607,32 +599,32 @@ static void LCD_direction(LCD_Horizontal_t direction)
 }
 
 
-static void RESET_L(void)
+void RESET_L(void)
 {
 	HAL_GPIO_WritePin(RESET_GPIO_Port, RESET_Pin, GPIO_PIN_RESET);
 }
 
-static void RESET_H(void)
+void RESET_H(void)
 {
 	HAL_GPIO_WritePin(RESET_GPIO_Port, RESET_Pin, GPIO_PIN_SET);
 }
 
-static void CS_L(void)
+void CS_L(void)
 {
 	HAL_GPIO_WritePin(SPI1_NSS_GPIO_Port, SPI1_NSS_Pin, GPIO_PIN_RESET);
 }
 
-static void DC_L(void)
+void DC_L(void)
 {
 	HAL_GPIO_WritePin(DCX_GPIO_Port, DCX_Pin, GPIO_PIN_RESET);
 }
 
-static void DC_H(void)
+void DC_H(void)
 {
 	HAL_GPIO_WritePin(DCX_GPIO_Port, DCX_Pin, GPIO_PIN_SET);
 }
 
-static void LED_H(void)
+void LED_H(void)
 {
 	HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
 }

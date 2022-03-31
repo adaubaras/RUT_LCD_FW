@@ -117,6 +117,7 @@ void LCD_DRAW_image(void);
 void SENSOR_Poll(void);
 void MBR_configuration_init (void);
 void Button_read (void);
+void Show_color(uint16_t cl);
 
 /***************************************
 * Delay Constants
@@ -184,9 +185,9 @@ int main(void)
 	ILI9341_Init();
 	HAL_Delay(100);
 
-	GUI_FillScreen(BLACK); //Blue
-	HAL_Delay(10);
-	GUI_UpdateScreen();
+//	GUI_FillScreen(BLACK); //Blue
+//	HAL_Delay(10);
+//	GUI_UpdateScreen();
 
   /* Main loop execution begins */
 
@@ -217,13 +218,15 @@ int main(void)
 
  		 if (buttonData == 0x01)
 				{
-					GUI_FillScreen(RED);
+					//GUI_FillScreen(RED);
+ 			 	 	Show_color(RED);
 					HAL_Delay(10);
 					GUI_UpdateScreen();
 				}
 		 if (buttonData == 0x02)
 				{
-					GUI_FillScreen(GREEN);
+					//GUI_FillScreen(GREEN);
+			 	 	Show_color(GREEN);
 					HAL_Delay(10);
 					GUI_UpdateScreen();
 				}
@@ -239,7 +242,6 @@ int main(void)
 					HAL_Delay(10);
 					GUI_UpdateScreen();
 				}
-
 		 if (buttonData == 0x10)
 				{
 					GUI_FillScreen(WHITE);
@@ -565,6 +567,26 @@ static void MX_GPIO_Init(void)
 * Summary:
 *  This function reads button status.
 */
+
+void Show_color(uint16_t cl)
+{
+	//TURN OFF DISPLAY
+	LCD_WR_REG(0x28);
+	//LCD_WR_DATA(0x2C);
+
+
+		GUI_FillScreen(cl);
+		HAL_Delay(10);
+		GUI_UpdateScreen();
+
+		//TURN ON DISPLAY
+		LCD_WR_REG(0x29);
+		//LCD_WR_DATA(0x2C);
+
+
+
+}
+
 void Button_read(void)
 {
 		if (TRUE == CY8CMBR3xxx_ReadDualByte(SLAVE_ADDRESS, CY8CMBR3xxx_BUTTON_STAT,  &buttonData))
@@ -844,6 +866,7 @@ void Host_LowLevelDelay(uint16 milliseconds)
 	HAL_Delay((uint32) milliseconds);
 }
 /* USER CODE END 4 */
+
 /**
   * @brief  This function is executed in case of error occurrence.
   * @retval None
